@@ -1,0 +1,15 @@
+services:
+  todo:
+    build: .
+    container_name: todo-app
+    restart: unless-stopped
+    ports:
+      - "8000:8000"
+    volumes:
+      # Persist the SQLite database across container restarts/rebuilds
+      - todo-data:/app/instance
+    environment:
+      - FLASK_ENV=production
+
+volumes:
+  todo-data:

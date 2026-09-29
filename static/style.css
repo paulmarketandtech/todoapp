@@ -1,0 +1,371 @@
+/* ── Reset & Base ─────────────────────────────── */
+*,
+*::before,
+*::after {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+:root {
+    --bg:        #1a1a2e;
+    --surface:   #16213e;
+    --card:      #0f3460;
+    --accent:    #e94560;
+    --accent2:   #53d8a8;
+    --text:      #eaeaea;
+    --text-dim:  #8892a4;
+    --border:    #2a2a4a;
+    --radius:    8px;
+}
+
+html {
+    font-size: 16px;
+}
+
+body {
+    font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
+    background-color: var(--bg);
+    color: var(--text);
+    line-height: 1.6;
+    min-height: 100vh;
+}
+
+a {
+    color: var(--accent);
+    text-decoration: none;
+}
+
+a:hover {
+    opacity: 0.85;
+}
+
+/* ── Layout ───────────────────────────────────── */
+.container {
+    max-width: 700px;
+    margin: 0 auto;
+    padding: 2rem 1rem;
+}
+
+header h1 {
+    text-align: center;
+    margin-bottom: 1.5rem;
+}
+
+header h1 a {
+    color: var(--text);
+}
+
+footer {
+    text-align: center;
+    margin-top: 3rem;
+    color: var(--text-dim);
+    font-size: 0.85rem;
+}
+
+/* ── Flash messages ───────────────────────────── */
+.flash {
+    padding: 0.7rem 1rem;
+    border-radius: var(--radius);
+    margin-bottom: 1rem;
+    font-size: 0.9rem;
+}
+
+.flash.success {
+    background-color: #0a3d2a;
+    border: 1px solid var(--accent2);
+    color: var(--accent2);
+}
+
+.flash.error {
+    background-color: #3d0a1a;
+    border: 1px solid var(--accent);
+    color: var(--accent);
+}
+
+/* ── Add form ─────────────────────────────────── */
+.add-form {
+    display: flex;
+    gap: 0.5rem;
+    margin-bottom: 1rem;
+    flex-wrap: wrap;
+}
+
+.add-form input[type="text"] {
+    flex: 1 1 200px;
+    padding: 0.65rem 0.9rem;
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    background: var(--surface);
+    color: var(--text);
+    font-size: 0.95rem;
+    outline: none;
+    transition: border 0.2s;
+}
+
+.add-form input[type="text"]:focus {
+    border-color: var(--accent);
+}
+
+/* ── Buttons ──────────────────────────────────── */
+.btn {
+    padding: 0.6rem 1.1rem;
+    border: none;
+    border-radius: var(--radius);
+    cursor: pointer;
+    font-size: 0.9rem;
+    transition: opacity 0.2s, transform 0.1s;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.btn:hover {
+    opacity: 0.85;
+}
+
+.btn:active {
+    transform: scale(0.97);
+}
+
+.btn-add {
+    background: var(--accent);
+    color: #fff;
+}
+
+.btn-edit {
+    background: var(--card);
+    color: var(--text);
+    padding: 0.4rem 0.7rem;
+    font-size: 1rem;
+}
+
+.btn-delete {
+    background: transparent;
+    color: var(--accent);
+    padding: 0.4rem 0.7rem;
+    font-size: 1.1rem;
+    border: 1px solid var(--accent);
+}
+
+.btn-clear {
+    background: transparent;
+    border: 1px solid var(--text-dim);
+    color: var(--text-dim);
+    font-size: 0.85rem;
+    padding: 0.45rem 0.9rem;
+}
+
+.btn-cancel {
+    background: var(--surface);
+    color: var(--text-dim);
+    border: 1px solid var(--border);
+}
+
+/* ── Toolbar (stats + filters) ────────────────── */
+.toolbar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+    margin-bottom: 1rem;
+    padding: 0.5rem 0;
+    border-bottom: 1px solid var(--border);
+    font-size: 0.85rem;
+    color: var(--text-dim);
+}
+
+.stats .sep {
+    margin: 0 0.3rem;
+    opacity: 0.4;
+}
+
+.filters {
+    display: flex;
+    gap: 0.4rem;
+}
+
+.filters a {
+    padding: 0.25rem 0.65rem;
+    border-radius: var(--radius);
+    color: var(--text-dim);
+    border: 1px solid transparent;
+    font-size: 0.85rem;
+    transition: all 0.2s;
+}
+
+.filters a:hover {
+    border-color: var(--border);
+}
+
+.filters a.active {
+    border-color: var(--accent);
+    color: var(--accent);
+}
+
+/* ── Todo list ────────────────────────────────── */
+.todo-list {
+    list-style: none;
+}
+
+.todo-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    gap: 0.75rem;
+    padding: 0.85rem 1rem;
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    margin-bottom: 0.5rem;
+    transition: background 0.2s;
+}
+
+.todo-item:hover {
+    background: var(--card);
+}
+
+.todo-item.done .todo-title {
+    text-decoration: line-through;
+    opacity: 0.5;
+}
+
+.todo-item.done .todo-desc {
+    opacity: 0.4;
+}
+
+.todo-left {
+    display: flex;
+    gap: 0.75rem;
+    align-items: flex-start;
+    flex: 1;
+    min-width: 0;
+}
+
+.checkbox {
+    font-size: 1.35rem;
+    line-height: 1;
+    color: var(--accent2);
+    flex-shrink: 0;
+    margin-top: 2px;
+}
+
+.todo-text {
+    display: flex;
+    flex-direction: column;
+    gap: 0.15rem;
+    min-width: 0;
+}
+
+.todo-title {
+    font-size: 1rem;
+    word-break: break-word;
+}
+
+.todo-desc {
+    font-size: 0.82rem;
+    color: var(--text-dim);
+    word-break: break-word;
+}
+
+.todo-date {
+    font-size: 0.72rem;
+    color: var(--text-dim);
+    opacity: 0.6;
+}
+
+.todo-actions {
+    display: flex;
+    gap: 0.35rem;
+    flex-shrink: 0;
+    align-items: center;
+}
+
+.inline-form {
+    display: inline;
+}
+
+.clear-form {
+    text-align: center;
+    margin-top: 1rem;
+}
+
+/* ── Edit page ────────────────────────────────── */
+.edit-form {
+    background: var(--surface);
+    padding: 1.5rem;
+    border-radius: var(--radius);
+    border: 1px solid var(--border);
+}
+
+.edit-form label {
+    display: block;
+    margin-bottom: 0.3rem;
+    margin-top: 1rem;
+    font-size: 0.9rem;
+    color: var(--text-dim);
+}
+
+.edit-form label:first-child {
+    margin-top: 0;
+}
+
+.edit-form input[type="text"],
+.edit-form textarea {
+    width: 100%;
+    padding: 0.65rem 0.9rem;
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    background: var(--bg);
+    color: var(--text);
+    font-size: 0.95rem;
+    font-family: inherit;
+    outline: none;
+    transition: border 0.2s;
+    resize: vertical;
+}
+
+.edit-form input[type="text"]:focus,
+.edit-form textarea:focus {
+    border-color: var(--accent);
+}
+
+.form-actions {
+    display: flex;
+    gap: 0.5rem;
+    margin-top: 1.3rem;
+}
+
+h2 {
+    margin-bottom: 1rem;
+    font-weight: 600;
+}
+
+/* ── Empty state ──────────────────────────────── */
+.empty {
+    text-align: center;
+    padding: 3rem 1rem;
+    color: var(--text-dim);
+    font-size: 1.1rem;
+}
+
+/* ── Responsive ───────────────────────────────── */
+@media (max-width: 500px) {
+    .add-form {
+        flex-direction: column;
+    }
+
+    .toolbar {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+
+    .todo-item {
+        flex-direction: column;
+    }
+
+    .todo-actions {
+        align-self: flex-end;
+    }
+}

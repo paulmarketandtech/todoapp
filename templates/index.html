@@ -1,0 +1,84 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+<!-- Add form -->
+<form class="add-form" action="{{ url_for('add') }}" method="POST">
+    <input
+        type="text"
+        name="title"
+        placeholder="What needs to be done?"
+        autofocus
+        required
+        maxlength="200"
+    >
+    <input
+        type="text"
+        name="description"
+        placeholder="Description (optional)"
+        maxlength="500"
+    >
+    <button type="submit" class="btn btn-add">Add</button>
+</form>
+
+<!-- Stats & Filters -->
+<div class="toolbar">
+    <div class="stats">
+        <span>{{ total }} total</span>
+        <span class="sep">|</span>
+        <span>{{ done_count }} done</span>
+        <span class="sep">|</span>
+        <span>{{ total - done_count }} pending</span>
+    </div>
+    <div class="filters">
+        <a href="{{ url_for('index', filter='all') }}"
+           class="{% if filter_status == 'all' %}active{% endif %}">All</a>
+        <a href="{{ url_for('index', filter='pending') }}"
+           class="{% if filter_status == 'pending' %}active{% endif %}">Pending</a>
+        <a href="{{ url_for('index', filter='done') }}"
+           class="{% if filter_status == 'done' %}active{% endif %}">Done</a>
+    </div>
+</div>
+
+<!-- Todo list -->
+{% if todos %}
+<ul class="todo-list">
+    {% for todo in todos %}
+    <li class="todo-item {% if todo.done %}done{% endif %}">
+        <div class="todo-left">
+            <a href="{{ url_for('toggle', todo_id=todo.id) }}" class="checkbox" title="Toggle done">
+                {% if todo.done %}☑{% else %}☐{% endif %}
+            </a>
+            <div class="todo-text">
+                <span class="todo-title">{{ todo.title }}</span>
+                {% if todo.description %}
+                    <span class="todo-desc">{{ todo.description }}</span>
+                {% endif %}
+                <span class="todo-date">{{ todo.created_at.strftime('%b %d, %Y %H:%M') }}</span>
+            </div>
+        </div>
+        <div class="todo-actions">
+            <a href="{{ url_for('edit', todo_id=todo.id) }}" class="btn btn-edit" title="Edit">✎</a>
+            <form action="{{ url_for('delete', todo_id=todo.id) }}" method="POST" class="inline-form"
+                  onsubmit="return confirm('Delete this todo?')">
+                <button type="submit" class="btn btn-delete" title="Delete">✕</button>
+            </form>
+        </div>
+    </li>
+    {% endfor %}
+</ul>
+
+{% if done_count > 0 %}
+<form action="{{ url_for('clear_done') }}" method="POST" class="clear-form"
+      onsubmit="return confirm('Clear all completed todos?')">
+    <button type="submit" class="btn btn-clear">Clear completed ({{ done_count }})</button>
+</form>
+{% endif %}
+
+{% else %}
+<div class="empty">
+    <p>🎉 Nothing here. Add a todo above!</p>
+</div>
+{% endif %}
+
+{% endblock %}
