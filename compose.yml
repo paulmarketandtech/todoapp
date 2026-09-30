@@ -10,6 +10,5 @@ services:
       - todo-data:/app/instance
     environment:
       - FLASK_ENV=production
-
-volumes:
-  todo-data:
+      - DATABASE_URL=postgresql://<username>:<password>@10.0.2.22:5432/todos
+      - SECRET_KEY=change-me-to-something-random-later
